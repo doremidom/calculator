@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+ 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+</head>
+<body>
+<div class="calculator">
+<div class="result"></div><br>
+	<div class="number" id=0><p>0</p>
+	</div>
+	<div class="number" id=1><p>1</p></div>
+	<div class="number" id=2><p>2</p></div><br>
+	<div class="number" id=3><p>3</p></div>
+	<div class="number" id=4><p>4</p></div>
+	<div class="number" id=5><p>5</p></div><br>
+	<div class="number" id=6><p>6</p></div>
+	<div class="number" id=7><p>7</p></div>
+	<div class="number" id=8><p>8</p></div><br>
+	<div class="number" id=9><p>9</p></div>
+	<div class="function" id='add'><p>+</p> </div>
+	<div class="function" id='sub'><p> - </p></div><br>
+	<div class="function" id='div'><p>/ </p></div>
+	<div class="function" id='mult'><p>* </p></div>
+	<div class="function" id='calculate'><p>= </p></div><br>
+	<div class="function" id='clear'><p>clear</p></div>
+</div>
+<script>
+function add(x,y){
+	return x+y;
+}
+
+function multiply(x,y){
+	return x*y;
+}
+
+function subtract(x,y){
+	return x-y;
+}
+
+function divide(x,y){
+	return x/y
+} 
+
+function calculate(number1, number2, action) {
+	var answer = null
+	switch(action){
+		case "add":
+		answer = number1 + number2
+		break;
+		case "sub":
+		answer = number1-number2
+		break;
+		case "div":
+		answer =number1/number2
+		break;
+		case "mult":
+		answer =number1*number2
+		break;
+	}
+	return answer
+}
+
+var number1 = []
+var number2 = []
+var action = ""
+
+$('div.number').click(function (){	
+	var number = ($(this).attr('id'))
+	if (action == "") {
+		number1.push(number)
+	}
+	else {
+		if (number2.length == 0) {
+			console.log('clearing')
+			$('div.result').html(' ')
+		}
+		console.log('this is' + number2)
+		number2.push(number);
+	};
+	$('div.result').append(number);
+});
+
+$('div.function').click(function () {
+	div_action = $(this).attr('id') 
+	if (div_action != ('calculate') && div_action != ('clear') ){
+		console.log(div_action)
+		action = div_action;
+	}
+	else if(div_action == 'clear'){
+		number1 = []
+		number2 = []
+		action = "";
+		$('div.result').html(' ')
+		console.log('clear!')
+	}
+	else {
+		var answer = calculate(parseInt(number1.join('')), parseInt(number2.join('')), action);
+		$('div.result').html(answer)
+	}
+});
+
+
+
+</script>
+</body>
+</html>
